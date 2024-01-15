@@ -22,7 +22,12 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         ''' returns None '''
-        return None
+        if request is None:
+            return None
+        eader = request.headers.get('Authorization')
+        if eader is None:
+            return None
+        return eader
 
     def current_user(self, request=None) -> TypeVar('User'):
         ''' returns None '''
