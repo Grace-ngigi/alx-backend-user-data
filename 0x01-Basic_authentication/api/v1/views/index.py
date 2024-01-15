@@ -33,6 +33,6 @@ def test_unauthorized() -> str:
 
 
 @app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
-def test_unauthorized() -> str:
+def test_forbidden() -> str:
     ''' Test forbidden error handler'''
-    abort(403, description="forbidden")
+    abort(403, description="Forbidden")
