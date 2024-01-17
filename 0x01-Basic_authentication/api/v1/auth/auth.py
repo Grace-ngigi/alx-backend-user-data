@@ -15,8 +15,9 @@ class Auth:
             return True
 
         path = path.rstrip('/') + '/'
-        if excluded_paths.endswith('*') and path.startswith(excluded_paths[:-1]):
-            return False
+        for excluded_path in excluded_paths:
+            if excluded_path.endswith('*') and path.startswith(excluded_path[:-1]):
+                return False
         return True
 
     def authorization_header(self, request=None) -> str:
@@ -26,7 +27,7 @@ class Auth:
         eader = request.headers.get('Authorization')
         if eader is None:
             return None
-        return eader
+        return None
 
     def current_user(self, request=None) -> TypeVar('User'):
         ''' returns None '''
