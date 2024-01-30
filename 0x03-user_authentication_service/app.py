@@ -52,13 +52,24 @@ def logout() -> None:
 
 
 @app.route("/profile", methods=["GET"], strict_slashes=False)
-def profile() -> None:
+def profile() -> str:
     '''User Profile'''
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
     if user:
         return jsonify({"email": f"{user.email}"}), 200
     abort(403)
+
+
+@app.route("/reset_password", methods=["POST"], strict_slashes=False)
+def get_reset_password_token() -> None:
+    ''' Get reset password token '''
+    email = request.form.get('email')
+    try:
+        reset_tkn = AUTH.get_reset_password_token(email)
+    except ValueError:
+        abort(403)
+    return jsonify({"email": f"{email}", "reset_token": f"{reset_tkn}"})
 
 
 if __name__ == "__main__":
