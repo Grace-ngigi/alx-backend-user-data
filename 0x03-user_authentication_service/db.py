@@ -49,7 +49,7 @@ class DB:
             self._session.rollback()
             raise e
 
-    def update_user(self, user_id: str, **kwargs) -> User:
+    def update_user(self, user_id: int, **kwargs) -> None:
         ''' Update User '''
         try:
             user = self.find_user_by(id=user_id)
